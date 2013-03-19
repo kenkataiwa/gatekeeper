@@ -8,6 +8,7 @@
     "authors": [
         {"name": "Kenneth Kataiwa", "email": "kenkataiwa@gmail.com"}
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": ">= 5.4",
         "facebook/php-sdk": "3.2.2",
