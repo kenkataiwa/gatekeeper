@@ -11,31 +11,18 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">= 5.4",
-        "facebook/php-sdk": "3.2.2",
-        "google/google-api-php-client": "0.6.0"
+        "facebook/php-sdk": "3.2.2"
     },
     "autoload": {
         "psr-0": {"OAuth": "lib/"}
+    },
+    "suggest": {
+        "google/google-api-php-client": "Add a custom repository to \n\
+        http://google-api-php-client.googlecode.com/files/google-api-php-client-0.6.0.tar.gz "
     },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
         }
-    },
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "google/google-api-php-client",
-                "version": "0.6.0",
-                "dist": {
-                    "url": "http://google-api-php-client.googlecode.com/files/google-api-php-client-0.6.0.tar.gz",
-                    "type": "tar"
-                },
-                "autoload": {
-                    "classmap": ["src/"]
-                }
-            }
-        }
-    ]
+    }
 }
