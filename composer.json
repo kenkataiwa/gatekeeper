@@ -1,0 +1,23 @@
+{
+    "name": "kenkataiwa/oauth",
+    "type": "library",
+    "description": "Open Authentiation Abstration",
+    "keywords": ["oauth", "php-oauth", "social integration"],
+    "homepage": "http://www.github.com/kenkataiwa/oauth",
+    "license": "MIT",
+    "authors": [
+        {"name": "Kenneth Kataiwa", "email": "kenkataiwa@gmail.com"}
+    ],
+    "require": {
+        "php": ">=5.4",
+        "facebook/php-sdk": "3.2.2"
+    },
+    "autoload": {
+        "psr-0": { "OAuth": "lib/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
