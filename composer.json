@@ -17,8 +17,7 @@
         "psr-0": {"OAuth": "lib/"}
     },
     "suggest": {
-        "google/google-api-php-client": "Add a custom repository to \n\
-        http://google-api-php-client.googlecode.com/files/google-api-php-client-0.6.0.tar.gz "
+        "google/google-api-php-client": "Add a custom repository to http://google-api-php-client.googlecode.com/files/google-api-php-client-0.6.0.tar.gz "
     },
     "extra": {
         "branch-alias": {
