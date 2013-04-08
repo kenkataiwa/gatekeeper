@@ -14,12 +14,13 @@
         "facebook/php-sdk": "3.2.2"
     },
     "require-dev": {
+        "hybridauth/hybridauth": "dev-master",
         "opauth/opauth": "dev-master",
         "opauth/facebook": "dev-master",
-        "opauth/twitter": "dev-master",
         "opauth/google": "dev-master",
         "opauth/linkedin": "dev-master",
-        "hybridauth/hybridauth": "dev-master"
+        "opauth/live": "dev-master",
+        "opauth/twitter": "dev-master"
     },
     "autoload": {
         "psr-0": {"OAuth": "lib/"}
