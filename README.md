@@ -1,4 +1,8 @@
-# OAuth 0.0.1-dev
+# OAuth 0.1.0-dev
+
+Oauth is a multi-provider authentication abstraction layer for PHP.
+
+[![Build Status](https://secure.travis-ci.org/kenkataiwa/oauth.png?branch=master)](http://travis-ci.org/kenkataiwa/oauth)
 
 ## Getting Started
 
@@ -9,7 +13,7 @@
 <table>
 <tr>
 	<th>Providers</th>
-    <th>Status<th>
+    <th>Status</th>
 </tr>
 <tr>
 	<td><img src="http://g.etfv.co/http://facebook.com" alt="Facebook">&nbsp;&nbsp;
@@ -37,7 +41,7 @@
 </tr>
 <tr>
 	<td><img src="http://g.etfv.co/http://linkedin.com" alt="LinkedIn">&nbsp;&nbsp;
-		<a href="http://linkedin.com">LinkedIn</a>
+		<a href="http://linkedin.com"><strong>LinkedIn</strong></a>
     </td>
     <td>Incomplete</td>
 </tr>
@@ -52,6 +56,11 @@
 		<a href="http://openid.net">OpenID</a>
     </td>
     <td>Incomplete</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://twitter.com" alt="Twitter" width="16">&nbsp;&nbsp;
+		<a href="http://twitter.com"><strong>Twitter</strong></a></td>
+	<td>Incomplete</td>
 </tr>
 <tr>
 	<td><img src="http://g.etfv.co/http://developer.yahoo.com" alt="Yahoo!" width="16">&nbsp;&nbsp;
