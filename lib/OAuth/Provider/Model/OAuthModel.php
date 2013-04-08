@@ -9,6 +9,11 @@ namespace OAuth\Provider\Model;
 abstract class OAuthModel {
 
     /**
+     * the provider api client (optional) 
+     */
+    public $api = NULL;
+
+    /**
      * Initialize OAuth Provider
      *
      * - Check the needed parameters ( stored in $this->params )
