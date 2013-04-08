@@ -2,3 +2,4 @@
 /nbproject/
 /vendor/
 /composer.lock
+/tools/sandbox/config/services.config.php
