@@ -1,0 +1,26 @@
+<?php
+/**
+ * Open authentication configuration
+ *
+ * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
+ */
+return array(
+    "providers" => array(
+        "Google" => array(
+            "enabled" => true,
+            "keys" => array("id" => "", "secret" => "")
+        ),
+        "Facebook" => array(
+            "enabled" => true,
+            "keys" => array("id" => "", "secret" => "")
+        ),
+        "Twitter" => array(
+            "enabled" => true,
+            "keys" => array("key" => "", "secret" => "")
+        ),
+        "LinkedIn" => array(
+            "enabled" => true,
+            "keys" => array("key" => "", "secret" => "")
+        ),
+    )
+);
