@@ -11,7 +11,7 @@ spl_autoload_register(function($className) {
             }
         });
 
-use \OAuth\Auth;
+use \Gatekeeper\Auth;
 
 try {
     $auth = new Auth(require __DIR__ . '/config/services.config.php');

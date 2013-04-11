@@ -1,6 +1,6 @@
 <?php
 
-namespace OAuth;
+namespace Gatekeeper;
 
 /**
  * Description of User

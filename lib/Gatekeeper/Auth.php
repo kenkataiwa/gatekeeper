@@ -1,8 +1,8 @@
 <?php
 
-namespace OAuth;
+namespace Gatekeeper;
 
-use OAuth\Provider\Adapter;
+use Gatekeeper\Provider\Adapter;
 
 /**
  * Description of User
@@ -20,7 +20,7 @@ class Auth {
     }
 
     /**
-     * @var OAuth\Provider
+     * @var Gatekeeper\Provider
      */
     private $provider;
 
@@ -30,7 +30,7 @@ class Auth {
      * If the user is already connected we just return and instance of provider adapter,
      * ELSE, try to authenticate and authorize the user with the provider.
      *
-     * @params is generally an array with required info in order for this provider and OAuth to work
+     * @params is generally an array with required info in order for this provider and Gatekeeper to work
      */
     public function authenticate($providerId, array $params = NULL) {
 

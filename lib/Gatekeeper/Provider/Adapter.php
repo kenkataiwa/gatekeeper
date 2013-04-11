@@ -1,6 +1,6 @@
 <?php
 
-namespace OAuth\Provider;
+namespace Gatekeeper\Provider;
 
 class Adapter {
 
@@ -76,7 +76,7 @@ class Adapter {
             $this->wrapper = $config["wrapper"]["class"];
         } else {
 
-            $this->wrapper = 'OAuth\Providers\\' . $this->id;
+            $this->wrapper = 'Gatekeeper\Providers\\' . $this->id;
         }
 
 # create the adapter instance, and pass the current params and config
@@ -87,7 +87,7 @@ class Adapter {
 
     /**
      * If the user is connected, then return the access_token and access_token_secret
-     * if the provider api use oauth
+     * if the provider api use gatekeeper
      */
     public function getAccessToken() {
         if (!$this->adapter->isUserConnected()) {
@@ -98,9 +98,9 @@ class Adapter {
 
         return
                 ARRAY(
-                    "access_token" => $this->adapter->token("access_token"), // OAuth access token
-                    "access_token_secret" => $this->adapter->token("access_token_secret"), // OAuth access token secret
-                    "refresh_token" => $this->adapter->token("refresh_token"), // OAuth refresh token
+                    "access_token" => $this->adapter->token("access_token"), // Gatekeeper access token
+                    "access_token_secret" => $this->adapter->token("access_token_secret"), // Gatekeeper access token secret
+                    "refresh_token" => $this->adapter->token("refresh_token"), // Gatekeeper refresh token
                     "expires_in" => $this->adapter->token("expires_in"), // OPTIONAL. The duration in seconds of the access token lifetime
                     "expires_at" => $this->adapter->token("expires_at"), // OPTIONAL. Timestamp when the access_token expire. if not provided by the social api, then it should be calculated: expires_at = now + expires_in
         );

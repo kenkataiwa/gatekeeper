@@ -1,27 +1,24 @@
 <?php
 
-namespace OAuth\Provider\Model;
+namespace Gatekeeper\Provider\Model;
 
 /**
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
-abstract class OAuthModel {
+class GatekeeperModel extends GatekeeperModel {
 
     /**
-     * the provider api client (optional) 
-     */
-    public $api = NULL;
-
-    /**
-     * Initialize OAuth Provider
+     * Initialize Gatekeeper Provider
      *
      * - Check the needed parameters ( stored in $this->params )
      * - Creating an instance of the api
      *
      * @return Object
      */
-    abstract protected function initialize();
+    protected function initialize() {
+
+    }
 
     function getUserProfile() {
         throw new Exception("Provider does not support this feature.", 8);

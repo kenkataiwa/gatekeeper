@@ -1,8 +1,8 @@
-# OAuth 0.1.0-dev
+# Gatekeeper 0.1.0-dev
 
-Oauth is a multi-provider authentication abstraction layer for PHP.
+Gatekeeper is a multi-provider authentication abstraction layer for PHP.
 
-[![Build Status](https://secure.travis-ci.org/kenkataiwa/oauth.png?branch=master)](http://travis-ci.org/kenkataiwa/oauth)
+[![Build Status](https://secure.travis-ci.org/kenkataiwa/gatekeeper.png?branch=master)](http://travis-ci.org/kenkataiwa/gatekeeper)
 
 ## Getting Started
 
