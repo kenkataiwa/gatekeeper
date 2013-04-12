@@ -8,7 +8,7 @@
     "authors": [
         {"name": "Kenneth Kataiwa", "email": "kenkataiwa@gmail.com"}
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "alpha",
     "require": {
         "php": ">= 5.3.10",
         "facebook/php-sdk": "3.2.2"
@@ -30,7 +30,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "0.1.x-dev"
         }
     }
 }
