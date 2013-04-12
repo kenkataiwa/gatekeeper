@@ -2,7 +2,7 @@
 
 Gatekeeper is a multi-provider authentication abstraction layer for PHP.
 
-[![Build Status](https://secure.travis-ci.org/kenkataiwa/gatekeeper.png?branch=master)](http://travis-ci.org/kenkataiwa/gatekeeper)
+[![Build Status](https://api.travis-ci.org/kenkataiwa/gatekeeper.png?branch=master)](http://travis-ci.org/kenkataiwa/gatekeeper)
 
 ## Getting Started
 
