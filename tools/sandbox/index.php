@@ -25,5 +25,3 @@ try {
 }
 
 var_dump($auth);
-
-//print_r($userProfile);
