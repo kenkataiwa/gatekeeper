@@ -11,7 +11,7 @@ use Gatekeeper\Provider\Adapter;
  */
 class Auth {
 
-    private $version = "1.0.0-dev";
+    private $version = "0.1.0-dev";
     private $config = array();
 
     function __construct(array $config) {
