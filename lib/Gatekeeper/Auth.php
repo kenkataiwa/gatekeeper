@@ -34,9 +34,11 @@ class Auth {
      */
     public function authenticate($providerId, array $params = NULL) {
 
-        $loggedIn = false;
+        $loggedIn = true;
         if ($loggedIn) {
-            // Loggin
+            $this->setProvider($this->setup($providerId, $params));
+            $this->provider->login();
+            // Log in
         } else {
             $this->setProvider($this->setup($providerId, $params));
             return $this->provider;
@@ -52,12 +54,11 @@ class Auth {
         $provider = new Adapter;
         $provider->setConfig($this->config);
         $provider->factory($providerId, $params);
-//        print_r($provider);
         return $provider;
     }
 
     /**
-     * Set providers
+     * Set provider
      */
     public function setProvider(Adapter $provider) {
         $this->provider = $provider;
