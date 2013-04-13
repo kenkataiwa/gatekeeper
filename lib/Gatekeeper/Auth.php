@@ -2,7 +2,8 @@
 
 namespace Gatekeeper;
 
-use Gatekeeper\Provider\Adapter;
+use Gatekeeper\Provider\Adapter,
+    Gatekeeper\Storage;
 
 /**
  * Description of User
@@ -11,18 +12,44 @@ use Gatekeeper\Provider\Adapter;
  */
 class Auth {
 
-    private $version = "0.1.0-dev";
+    public static $version = "0.1.0-dev";
+
     private $config = array();
 
-    function __construct(array $config) {
-
-        $this->config = $config;
-    }
+    /**
+     * @var Gatekeeper\Storage
+     */
+    private $storage;
 
     /**
      * @var Gatekeeper\Provider
      */
     private $provider;
+
+    public function __construct(array $config) {
+        $this->initializa($config);
+    }
+
+    public function initializa($config) {
+        if (!is_array($config) && !file_exists($config)) {
+            throw new Exception("Gatekeeper config does not exist on the given path.", 1);
+        }
+
+        if (!is_array($config)) {
+            $this->config = include $config;
+        } else {
+            $this->config = $config;
+        }
+
+        $this->storage = new Storage;
+
+		// PHP Curl extension [http://www.php.net/manual/en/intro.curl.php]
+		if ( ! function_exists('curl_init') ) {
+			throw new Exception('Gatekeeper Library needs the CURL PHP extension.');
+		}
+        
+        return $this;
+    }
 
     /**
      * Try to authenticate the user with a given provider.
@@ -34,11 +61,9 @@ class Auth {
      */
     public function authenticate($providerId, array $params = NULL) {
 
-        $loggedIn = true;
-        if ($loggedIn) {
+        if (!$this->getStorage()->get("gatekeeper_session.$providerId.is_logged_in")) {
             $this->setProvider($this->setup($providerId, $params));
             $this->provider->login();
-            // Log in
         } else {
             $this->setProvider($this->setup($providerId, $params));
             return $this->provider;
@@ -69,6 +94,20 @@ class Auth {
      */
     public function getProvider() {
         return $this->provider;
+    }
+
+    /**
+     * Set provider
+     */
+    public function setStorage(Storage $storage) {
+        $this->storage = $storage;
+    }
+
+    /**
+     * Get provider
+     */
+    public function getStorage() {
+        return $this->storage;
     }
 
 }

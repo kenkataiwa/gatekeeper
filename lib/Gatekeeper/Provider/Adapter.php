@@ -83,7 +83,8 @@ class Adapter {
         # create the service instance, and pass the current params and config
         $this->service = new $this->wrapper($this->id, $this->config, $this->params);
 
-        return $this;
+        # Redirect or load Endpoint
+
     }
 
     /**
