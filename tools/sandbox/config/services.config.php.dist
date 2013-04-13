@@ -1,11 +1,11 @@
 <?php
 /**
- * Open authentication configuration
+ * Gatekeeper configuration sample
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
 return array(
-    "providers" => array(
+    "services" => array(
         "Google" => array(
             "enabled" => true,
             "keys" => array("id" => "", "secret" => "")

@@ -15,10 +15,12 @@ use \Gatekeeper\Auth;
 
 try {
     $auth = new Auth(require __DIR__ . '/config/services.config.php');
-    $adapter = $auth->authenticate('facebook', array());
-    $userProfile = $adapter->getUserProfile();
-} catch (Exception $e) {
+//    $adapter = $auth->authenticate('facebook', array());
+//    $userProfile = $adapter->getUserProfile();
+} catch (\Exception $e) {
     die("<b>got an error!</b> " . $e->getMessage());
 }
 
-print_r($userProfile);
+print_r( $auth );
+
+//print_r($userProfile);
