@@ -9,12 +9,12 @@ namespace Gatekeeper\Provider\Model;
 abstract class AbstractModel {
 
     /**
-     * the provider api client (optional) 
+     * the provider api client (optional)
      */
     public $api = NULL;
 
     /**
-     * Initialize Gatekeeper Provider
+     * Initialize OAuth Provider
      *
      * - Check the needed parameters ( stored in $this->params )
      * - Creating an instance of the api

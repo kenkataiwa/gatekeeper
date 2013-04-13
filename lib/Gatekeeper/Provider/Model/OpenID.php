@@ -6,10 +6,15 @@ namespace Gatekeeper\Provider\Model;
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
-class OpenId extends AbstractModel {
+class OpenID extends AbstractModel {
+
+	/**
+     *  Openid provider identifier
+     */
+	public $openidIdentifier = "";
 
     /**
-     * Initialize Gatekeeper Provider
+     * Initialize OAuth Provider
      *
      * - Check the needed parameters ( stored in $this->params )
      * - Creating an instance of the api
@@ -17,6 +22,14 @@ class OpenId extends AbstractModel {
      * @return Object
      */
     protected function initialize() {
+
+    }
+
+    function loginBegin() {
+
+    }
+
+    function loginFinish() {
 
     }
 
