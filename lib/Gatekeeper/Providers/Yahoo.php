@@ -7,8 +7,8 @@ namespace Gatekeeper\Providers;
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
-use Gatekeeper\Provider\Model\GatekeeperModel;
+use Gatekeeper\Provider\Model\OAuth2;
 
-class Yahoo extends GatekeeperModel {
+class Yahoo extends OAuth2 {
 
 }

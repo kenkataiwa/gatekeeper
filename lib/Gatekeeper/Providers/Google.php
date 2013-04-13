@@ -7,9 +7,9 @@ namespace Gatekeeper\Provider;
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
-use Gatekeeper\Provider\Model\Gatekeeper2;
+use Gatekeeper\Provider\Model\OAuth2;
 
-class Google extends Gatekeeper2 {
+class Google extends OAuth2 {
 
 }
 

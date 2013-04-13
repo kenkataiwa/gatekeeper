@@ -7,9 +7,9 @@ namespace Gatekeeper\Providers;
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
-use Gatekeeper\Provider\Model\GatekeeperModel;
+use Gatekeeper\Provider\Model\OAuth2;
 
-class Facebook extends GatekeeperModel {
+class Facebook extends OAuth2 {
 
     private $scope = "email, user_about_me, user_birthday, user_hometown, user_website, read_stream, offline_access, publish_stream, read_friendlists";
 
