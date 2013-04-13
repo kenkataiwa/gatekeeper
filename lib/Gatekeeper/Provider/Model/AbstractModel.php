@@ -6,7 +6,7 @@ namespace Gatekeeper\Provider\Model;
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
-abstract class GatekeeperModel {
+abstract class AbstractModel {
 
     /**
      * the provider api client (optional) 

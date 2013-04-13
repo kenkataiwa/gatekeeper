@@ -6,7 +6,7 @@ namespace Gatekeeper\Provider\Model;
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
-class AbstractModel extends AbstractModel {
+class OAuth1 extends AbstractModel {
 
     /**
      * Initialize Gatekeeper Provider
