@@ -2,6 +2,8 @@
 
 namespace Gatekeeper\Provider\Model;
 
+use \Exception;
+
 /**
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>

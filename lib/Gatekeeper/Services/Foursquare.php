@@ -1,6 +1,6 @@
 <?php
 
-namespace Gatekeeper\Providers;
+namespace Gatekeeper\Services;
 
 /**
  * Foursquare

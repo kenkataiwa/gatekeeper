@@ -2,11 +2,13 @@
 
 namespace Gatekeeper\Provider\Model;
 
+use \Exception;
+
 /**
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
-class OAuthModel extends AbstractModel {
+class OAuth2 extends AbstractModel {
 
     // default permissions
     protected $scope = "";
