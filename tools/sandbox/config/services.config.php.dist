@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Gatekeeper configuration sample
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
 return array(
+    "base_url" => "",
     "services" => array(
         "Google" => array(
             "enabled" => true,
