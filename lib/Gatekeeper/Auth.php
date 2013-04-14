@@ -115,6 +115,29 @@ class Auth {
     }
 
     /**
+     * Utility function, redirect to a given URL with php header or using javascript location.href
+     */
+    public static function redirect($url, $mode = "PHP") {
+
+        if ($mode == "PHP") {
+            header("Location: $url");
+        } elseif ($mode == "JS") {
+            echo '<html>';
+            echo '<head>';
+            echo '<script type="text/javascript">';
+            echo 'function redirect(){ window.top.location.href="' . $url . '"; }';
+            echo '</script>';
+            echo '</head>';
+            echo '<body onload="redirect()">';
+            echo 'Redirecting, please wait...';
+            echo '</body>';
+            echo '</html>';
+        }
+
+        die();
+    }
+
+    /**
      * Utility function, return the current url.
      *
      * @param bool $request_uri TRUE to get $_SERVER['REQUEST_URI'], FALSE for $_SERVER['PHP_SELF']

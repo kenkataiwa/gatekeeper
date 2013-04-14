@@ -2,9 +2,8 @@
 
 namespace Gatekeeper\Provider;
 
-use Gatekeeper\Endpoint,
+use Gatekeeper\Auth,
     Gatekeeper\Storage,
-    Gatekeeper\Auth,
     \Exception;
 
 class Adapter {
@@ -82,7 +81,7 @@ class Adapter {
         }
 
         # create the service instance, and pass the current params and config
-        $this->service = new $this->wrapper($this->id, $this->config, $this->params);
+        $this->service = new $this->wrapper($this->id, $this->getConfigById($this->id), $this->params);
 
         return $this;
     }
@@ -106,6 +105,9 @@ class Adapter {
         // Make a fresh start
         $this->logout();
 
+		# Get Gatekeeper base url
+		$gatekeeperUrlBase = $this->config["base_url"];
+
         # we make use of session_id() as storage hash to identify the current user
         # using session_regenerate_id() will be a problem, but ..
         $this->params["gk_token"] = session_id();
@@ -113,14 +115,24 @@ class Adapter {
         # set request timestamp
         $this->params["gk_time"] = time();
 
-        $this->storage->set("gk_session.{$this->id}.gk_return_to", $this->params["hauth_return_to"]);
+		# For default Gatekeeper endpoint url hauth_login_start_url
+		# 	auth.start  required  the IDp ID
+		# 	auth.time   optional  login request timestamp
+		$this->params["login_start"] = $gatekeeperUrlBase . ( strpos( $gatekeeperUrlBase, '?' ) ? '&' : '?' ) . "gk.start={$this->id}&gk.time={$this->params["gk_time"]}";
+
+		# for default HybridAuth endpoint url hauth_login_done_url
+		# 	auth.done   required  the IDp ID
+		$this->params["login_done"]  = $gatekeeperUrlBase . ( strpos( $gatekeeperUrlBase, '?' ) ? '&' : '?' ) . "gk.done={$this->id}";
+
+
+        $this->storage->set("gk_session.{$this->id}.gk_return_to", $this->params["gk_return_to"]);
         $this->storage->set("gk_session.{$this->id}.gk_endpoint", $this->params["login_done"]);
         $this->storage->set("gk_session.{$this->id}.id_provider_params", $this->params);
 
         // store config to be used by the end point
         $this->storage->config("config", $this->config);
 
-        Endpoint::process();
+        Auth::redirect($this->params["login_start"]);
     }
 
     /**

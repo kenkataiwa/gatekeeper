@@ -7,8 +7,10 @@ namespace Gatekeeper\Services;
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
-use Gatekeeper\Provider\Model\OAuth2,
-    \Exception;
+use \Exception,
+    \Facebook as FbApi,
+    Gatekeeper\Auth,
+    Gatekeeper\Provider\Model\OAuth2;
 
 class Facebook extends OAuth2 {
 
@@ -19,9 +21,8 @@ class Facebook extends OAuth2 {
             throw new Exception("Your application id and secret are required in order to connect to {$this->providerId}.", 4);
         }
 
-        $this->api = new Facebook(array('appId' => $this->config["keys"]["id"], 'secret' => $this->config["keys"]["secret"]));
+        $this->api = new FbApi(array('appId' => $this->config["keys"]["id"], 'secret' => $this->config["keys"]["secret"]));
 
-        exit;
         if ($this->token("access_token")) {
             $this->api->setAccessToken($this->token("access_token"));
             $this->api->setExtendedAccessToken();
@@ -57,7 +58,7 @@ class Facebook extends OAuth2 {
         $url = $this->api->getLoginUrl($parameters);
 
         // redirect to facebook
-        Hybrid_Auth::redirect($url);
+        Auth::redirect($url);
     }
 
     /**

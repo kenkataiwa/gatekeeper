@@ -2,7 +2,8 @@
 
 namespace Gatekeeper;
 
-use Gatekeeper\Auth;
+use Gatekeeper\Auth,
+    Gatekeeper\Storage;
 
 /**
  * Gatekeeper\Endpoint class
@@ -10,6 +11,8 @@ use Gatekeeper\Auth;
  * Provides a simple way to handle the OpenID and OAuth endpoint.
  */
 class Endpoint {
+
+    public $storage;
 
     public static $request = NULL;
     public static $initDone = FALSE;
@@ -47,11 +50,11 @@ class Endpoint {
         }
 
         // If we get a hauth.start
-        if (isset(Endpoint::$request["hauth_start"]) && Endpoint::$request["hauth_start"]) {
+        if (isset(Endpoint::$request["gk_start"]) && Endpoint::$request["gk_start"]) {
             Endpoint::processAuthStart();
         }
-        // Else if hauth.done
-        elseif (isset(Endpoint::$request["hauth_done"]) && Endpoint::$request["hauth_done"]) {
+        // Else if gk.done
+        elseif (isset(Endpoint::$request["gk_done"]) && Endpoint::$request["gk_done"]) {
             Endpoint::processAuthDone();
         }
         // Else we advertise our XRDS document, something supposed to be done from the Realm URL page
@@ -106,37 +109,31 @@ class Endpoint {
     public static function processAuthStart() {
         Endpoint::authInit();
 
-        $provider_id = trim(strip_tags(Endpoint::$request["hauth_start"]));
+        $provider_id = trim(strip_tags(Endpoint::$request["gk_start"]));
 
         # check if page accessed directly
-        if (!Auth::storage()->get("hauth_session.$provider_id.hauth_endpoint")) {
-            Hybrid_Logger::error("Endpoint: hauth_endpoint parameter is not defined on hauth_start, halt login process!");
-
-            header("HTTP/1.0 404 Not Found");
-            die("You cannot access this page directly.");
-        }
+//        if (!Auth::storage()->get("gk_session.$provider_id.gk_endpoint")) {
+//
+//            header("HTTP/1.0 404 Not Found");
+//            die("You cannot access this page directly.");
+//        }
 
         # define:hybrid.endpoint.php step 2.
-        $hauth = Auth::setup($provider_id);
+//        $hauth = Auth::setup($provider_id);
 
-        # if REQUESTed hauth_idprovider is wrong, session not created, etc.
-        if (!$hauth) {
-            Hybrid_Logger::error("Endpoint: Invalid parameter on hauth_start!");
-
-            header("HTTP/1.0 404 Not Found");
-            die("Invalid parameter! Please return to the login page and try again.");
-        }
-
-        try {
-            Hybrid_Logger::info("Endpoint: call adapter [{$provider_id}] loginBegin()");
-
-            $hauth->adapter->loginBegin();
-        } catch (Exception $e) {
-            Hybrid_Logger::error("Exception:" . $e->getMessage(), $e);
-            Hybrid_Error::setError($e->getMessage(), $e->getCode(), $e->getTraceAsString(), $e);
-
-            $hauth->returnToCallbackUrl();
-        }
+        # if REQUESTed gk_idprovider is wrong, session not created, etc.
+//        if (!$hauth) {
+//
+//            header("HTTP/1.0 404 Not Found");
+//            die("Invalid parameter! Please return to the login page and try again.");
+//        }
+//
+//        try {
+//            $hauth->adapter->loginBegin();
+//        } catch (Exception $e) {
+//
+//            $hauth->returnToCallbackUrl();
+//        }
 
         die();
     }
@@ -147,13 +144,11 @@ class Endpoint {
     public static function processAuthDone() {
         Endpoint::authInit();
 
-        $provider_id = trim(strip_tags(Endpoint::$request["hauth_done"]));
+        $provider_id = trim(strip_tags(Endpoint::$request["gk_done"]));
 
         $hauth = Auth::setup($provider_id);
 
         if (!$hauth) {
-            Hybrid_Logger::error("Endpoint: Invalid parameter on hauth_done!");
-
             $hauth->adapter->setUserUnconnected();
 
             header("HTTP/1.0 404 Not Found");
@@ -161,7 +156,6 @@ class Endpoint {
         }
 
         try {
-            Hybrid_Logger::info("Endpoint: call adapter [{$provider_id}] loginFinish() ");
 
             $hauth->adapter->loginFinish();
         } catch (Exception $e) {
@@ -171,8 +165,6 @@ class Endpoint {
             $hauth->adapter->setUserUnconnected();
         }
 
-        Hybrid_Logger::info("Endpoint: job done. retrun to callback url.");
-
         $hauth->returnToCallbackUrl();
         die();
     }
@@ -180,12 +172,11 @@ class Endpoint {
     public static function authInit() {
         if (!Endpoint::$initDone) {
             Endpoint::$initDone = TRUE;
-
             # Init Auth
             try {
                 require_once realpath(dirname(__FILE__)) . "/Storage.php";
 
-                $storage = new Hybrid_Storage();
+                $storage = new Storage();
 
                 // Check if Auth session already exist
                 if (!$storage->config("CONFIG")) {
@@ -195,7 +186,6 @@ class Endpoint {
 
                 Auth::initialize($storage->config("CONFIG"));
             } catch (Exception $e) {
-                Hybrid_Logger::error("Endpoint: Error while trying to init Auth");
 
                 header("HTTP/1.0 404 Not Found");
                 die("Oophs. Error!");
