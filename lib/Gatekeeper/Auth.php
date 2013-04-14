@@ -13,7 +13,6 @@ use Gatekeeper\Provider\Adapter,
 class Auth {
 
     public static $version = "0.1.0-dev";
-
     private $config = array();
 
     /**
@@ -27,10 +26,10 @@ class Auth {
     private $provider;
 
     public function __construct(array $config) {
-        $this->initializa($config);
+        $this->initialize($config);
     }
 
-    public function initializa($config) {
+    public function initialize($config) {
         if (!is_array($config) && !file_exists($config)) {
             throw new Exception("Gatekeeper config does not exist on the given path.", 1);
         }
@@ -43,11 +42,11 @@ class Auth {
 
         $this->storage = new Storage;
 
-		// PHP Curl extension [http://www.php.net/manual/en/intro.curl.php]
-		if ( ! function_exists('curl_init') ) {
-			throw new Exception('Gatekeeper Library needs the CURL PHP extension.');
-		}
-        
+        // PHP Curl extension [http://www.php.net/manual/en/intro.curl.php]
+        if (!function_exists('curl_init')) {
+            throw new Exception('Gatekeeper Library needs the CURL PHP extension.');
+        }
+
         return $this;
     }
 
@@ -78,8 +77,13 @@ class Auth {
         // instantiate a new IDProvider Adapter
         $provider = new Adapter;
         $provider->setConfig($this->config);
+        $provider->setStorage($this->getStorage());
         $provider->factory($providerId, $params);
         return $provider;
+    }
+
+    public function getConfig() {
+        return $this->config;
     }
 
     /**
@@ -108,6 +112,37 @@ class Auth {
      */
     public function getStorage() {
         return $this->storage;
+    }
+
+    /**
+     * Utility function, return the current url.
+     *
+     * @param bool $request_uri TRUE to get $_SERVER['REQUEST_URI'], FALSE for $_SERVER['PHP_SELF']
+     */
+    public static function getCurrentUrl($request_uri = true) {
+        if (
+                isset($_SERVER['HTTPS']) && ( $_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1 ) || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+        ) {
+            $protocol = 'https://';
+        } else {
+            $protocol = 'http://';
+        }
+
+        $url = $protocol . $_SERVER['HTTP_HOST'];
+
+        // use port if non default
+        if (isset($_SERVER['SERVER_PORT']) && strpos($url, ':' . $_SERVER['SERVER_PORT']) === FALSE) {
+            $url .= ($protocol === 'http://' && $_SERVER['SERVER_PORT'] != 80 && !isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) || ($protocol === 'https://' && $_SERVER['SERVER_PORT'] != 443 && !isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) ? ':' . $_SERVER['SERVER_PORT'] : '';
+        }
+
+        if ($request_uri) {
+            $url .= $_SERVER['REQUEST_URI'];
+        } else {
+            $url .= $_SERVER['PHP_SELF'];
+        }
+
+        // return current url
+        return $url;
     }
 
 }

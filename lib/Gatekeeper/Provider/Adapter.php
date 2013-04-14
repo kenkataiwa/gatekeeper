@@ -2,7 +2,10 @@
 
 namespace Gatekeeper\Provider;
 
-use \Exception;
+use Gatekeeper\Endpoint,
+    Gatekeeper\Storage,
+    Gatekeeper\Auth,
+    \Exception;
 
 class Adapter {
 
@@ -15,6 +18,11 @@ class Adapter {
      * Service provider specific config
      */
     private $config = array();
+
+    /**
+     * @var Gatekeeper\Storage
+     */
+    private $storage;
 
     /**
      * Service provider extra parameters
@@ -30,13 +38,6 @@ class Adapter {
      * Service Provider instance
      */
     private $service = NULL;
-
-    /**
-     * Set config
-     */
-    public function setConfig(array $config) {
-        $this->config = $config;
-    }
 
     /**
      * Create a new service switch IDp name or ID
@@ -83,8 +84,7 @@ class Adapter {
         # create the service instance, and pass the current params and config
         $this->service = new $this->wrapper($this->id, $this->config, $this->params);
 
-        # Redirect or load Endpoint
-
+        return $this;
     }
 
     /**
@@ -96,24 +96,45 @@ class Adapter {
             throw new Exception("Gatekeeper\Provider\Adapter->login() should not directly used.");
         }
 
-		// Make a fresh start
-		$this->logout();
+        // clear all unneeded params
+        foreach ($this->config["services"] as $idpid => $params) {
+            $this->storage->delete("gk_session.{$idpid}.gk_return_to");
+            $this->storage->delete("gk_session.{$idpid}.gk_endpoint");
+            $this->storage->delete("gk_session.{$idpid}.id_provider_params");
+        }
 
-        // Finally redirect to log in url
+        // Make a fresh start
+        $this->logout();
+
+        # we make use of session_id() as storage hash to identify the current user
+        # using session_regenerate_id() will be a problem, but ..
+        $this->params["gk_token"] = session_id();
+
+        # set request timestamp
+        $this->params["gk_time"] = time();
+
+        $this->storage->set("gk_session.{$this->id}.gk_return_to", $this->params["hauth_return_to"]);
+        $this->storage->set("gk_session.{$this->id}.gk_endpoint", $this->params["login_done"]);
+        $this->storage->set("gk_session.{$this->id}.id_provider_params", $this->params);
+
+        // store config to be used by the end point
+        $this->storage->config("config", $this->config);
+
+        Endpoint::process();
     }
 
     /**
      * Let Gatekeeper forget all about the user for the current provider
      */
     public function logout() {
-
+        $this->service->logout();
     }
 
     /**
      * Return true if the user is connected to the current provider
      */
     public function isUserConnected() {
-
+        return $this->service->isUserConnected();
     }
 
     /**
@@ -140,10 +161,10 @@ class Adapter {
      * Naive getter of the current connected IDp API client
      */
     function api() {
-        if (!$this->adapter->isUserConnected()) {
+        if (!$this->service->isUserConnected()) {
             throw new Exception("User not connected to the provider.", 7);
         }
-        return $this->adapter->api;
+        return $this->service->api;
     }
 
     /**
@@ -151,6 +172,13 @@ class Adapter {
      */
     function returnToCallbackUrl() {
 
+    }
+
+    /**
+     * Set config
+     */
+    public function setConfig(array $config) {
+        $this->config = $config;
     }
 
     /**
@@ -175,6 +203,20 @@ class Adapter {
         }
 
         return NULL;
+    }
+
+    /**
+     * Set provider
+     */
+    public function setStorage(Storage $storage) {
+        $this->storage = $storage;
+    }
+
+    /**
+     * Get provider
+     */
+    public function getStorage() {
+        return $this->storage;
     }
 
     /**
