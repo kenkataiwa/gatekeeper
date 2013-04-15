@@ -218,17 +218,24 @@ class Adapter {
     }
 
     /**
-     * Set provider
+     * Set storage
      */
     public function setStorage(Storage $storage) {
         $this->storage = $storage;
     }
 
     /**
-     * Get provider
+     * Get storage
      */
     public function getStorage() {
         return $this->storage;
+    }
+
+    /**
+     * Get service provider
+     */
+    public function getService() {
+        return $this->service;
     }
 
     /**

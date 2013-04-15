@@ -74,10 +74,23 @@ class Auth {
      */
     public function setup($providerId, array $params = NULL) {
 
+        if (!$params) {
+            $params = $this->getStorage()->get("gk_session.$providerId.id_provider_params");
+        }
+        if (!$params) {
+            $params = array();
+        }
+
+        if (!isset($params["gk_return_to"])) {
+            $params["gk_return_to"] = static::getCurrentUrl();
+        }
+
+
         // instantiate a new IDProvider Adapter
         $provider = new Adapter;
         $provider->setConfig($this->config);
         $provider->setStorage($this->getStorage());
+
         $provider->factory($providerId, $params);
         return $provider;
     }

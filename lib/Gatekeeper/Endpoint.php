@@ -12,8 +12,8 @@ use Gatekeeper\Auth,
  */
 class Endpoint {
 
-    public $storage;
-
+    private static $auth;
+    public static $storage;
     public static $request = NULL;
     public static $initDone = FALSE;
 
@@ -110,30 +110,28 @@ class Endpoint {
         Endpoint::authInit();
 
         $provider_id = trim(strip_tags(Endpoint::$request["gk_start"]));
-
         # check if page accessed directly
-//        if (!Auth::storage()->get("gk_session.$provider_id.gk_endpoint")) {
-//
-//            header("HTTP/1.0 404 Not Found");
-//            die("You cannot access this page directly.");
-//        }
+        if (!self::$storage->get("gk_session.$provider_id.gk_endpoint")) {
 
+            header("HTTP/1.0 404 Not Found");
+            die("You cannot access this page directly.");
+        }
         # define:hybrid.endpoint.php step 2.
-//        $hauth = Auth::setup($provider_id);
+        $provider = self::$auth->setup($provider_id);
 
         # if REQUESTed gk_idprovider is wrong, session not created, etc.
-//        if (!$hauth) {
-//
-//            header("HTTP/1.0 404 Not Found");
-//            die("Invalid parameter! Please return to the login page and try again.");
-//        }
-//
-//        try {
-//            $hauth->adapter->loginBegin();
-//        } catch (Exception $e) {
-//
-//            $hauth->returnToCallbackUrl();
-//        }
+        if (!$provider) {
+
+            header("HTTP/1.0 404 Not Found");
+            die("Invalid parameter! Please return to the login page and try again.");
+        }
+
+        try {
+            $provider->getService()->loginBegin();
+        } catch (Exception $e) {
+
+            $provider->returnToCallbackUrl();
+        }
 
         die();
     }
@@ -146,10 +144,10 @@ class Endpoint {
 
         $provider_id = trim(strip_tags(Endpoint::$request["gk_done"]));
 
-        $hauth = Auth::setup($provider_id);
+        $provider = self::$auth->setup($provider_id);
 
-        if (!$hauth) {
-            $hauth->adapter->setUserUnconnected();
+        if (!$provider) {
+            $provider->getService()->setUserUnconnected();
 
             header("HTTP/1.0 404 Not Found");
             die("Invalid parameter! Please return to the login page and try again.");
@@ -157,15 +155,12 @@ class Endpoint {
 
         try {
 
-            $hauth->adapter->loginFinish();
+            $provider->getService()->loginFinish();
         } catch (Exception $e) {
-            Hybrid_Logger::error("Exception:" . $e->getMessage(), $e);
-            Hybrid_Error::setError($e->getMessage(), $e->getCode(), $e->getTraceAsString(), $e);
-
-            $hauth->adapter->setUserUnconnected();
+            $provider->getService()->setUserUnconnected();
         }
 
-        $hauth->returnToCallbackUrl();
+        $provider->returnToCallbackUrl();
         die();
     }
 
@@ -174,17 +169,15 @@ class Endpoint {
             Endpoint::$initDone = TRUE;
             # Init Auth
             try {
-                require_once realpath(dirname(__FILE__)) . "/Storage.php";
-
-                $storage = new Storage();
+                self::$storage = new Storage();
 
                 // Check if Auth session already exist
-                if (!$storage->config("CONFIG")) {
+                if (!self::$storage->config("config")) {
                     header("HTTP/1.0 404 Not Found");
                     die("You cannot access this page directly.");
                 }
 
-                Auth::initialize($storage->config("CONFIG"));
+                self::$auth = new Auth(self::$storage->config("config"));
             } catch (Exception $e) {
 
                 header("HTTP/1.0 404 Not Found");
