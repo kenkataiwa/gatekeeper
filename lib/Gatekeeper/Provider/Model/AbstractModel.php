@@ -13,12 +13,12 @@ use Gatekeeper\User,
 abstract class AbstractModel {
 
     /**
-     * the provider api client (optional)
+     * The provider api client (optional)
      */
     public $api = NULL;
 
     /**
-     *
+     * Storage
      */
     public $storage;
 

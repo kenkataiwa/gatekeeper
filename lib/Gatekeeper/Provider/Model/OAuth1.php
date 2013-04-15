@@ -3,7 +3,8 @@
 namespace Gatekeeper\Provider\Model;
 
 use \Exception,
-    Gatekeeper\Auth;
+    Gatekeeper\Auth,
+    \OAuth1Client;
 
 /**
  * To implement an OAuth 1 based service provider, Gatekeeper\Provider\Model\OAuth1
@@ -97,10 +98,7 @@ class OAuth1 extends AbstractModel {
             $this->api = new OAuth1Client($this->config["keys"]["key"], $this->config["keys"]["secret"]);
         }
 
-        // Set curl proxy if exist
-        if (isset(Auth::$config["proxy"])) {
-            $this->api->curl_proxy = Auth::$config["proxy"];
-        }
+        // Set curl proxy if exist from config
     }
 
     /**

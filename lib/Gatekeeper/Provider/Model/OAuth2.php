@@ -3,7 +3,8 @@
 namespace Gatekeeper\Provider\Model;
 
 use \Exception,
-    Gatekeeper\Auth;
+    Gatekeeper\Auth,
+   \OAuth2Client;
 
 /**
  * To implement an OAuth 2 based service provider, Gatekeeper\Provider\Model\OAuth2
@@ -15,14 +16,22 @@ use \Exception,
  *   Gatekeeper\Services\{provider_name}->getUserProfile() to grab the user profile
  *
  * Gatekeeper\Provider\Model\OAuth2 use OAuth2Client v0.1 which can be found on
- * Hybrid/thirdparty/OAuth/OAuth2Client.php
+ * thirdparty/OAuth/OAuth2Client.php
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
 class OAuth2 extends AbstractModel {
 
-    // default permissions
+    /**
+     *
+     * @var array default permissions
+     */
     protected $scope = "";
+
+    /**
+     *
+     * @var type
+     */
     private $http_status_codes = array(
         200 => "OK: Success!",
         304 => "Not Modified: There was no new data to return.",
@@ -77,10 +86,7 @@ class OAuth2 extends AbstractModel {
             $this->api->access_token_expires_at = $this->token("expires_at");
         }
 
-        // Set curl proxy if exist
-        if (isset(Auth::$config["proxy"])) {
-            $this->api->curl_proxy = Auth::$config["proxy"];
-        }
+        // Set curl proxy if exist from config
     }
 
     /**
