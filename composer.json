@@ -14,6 +14,7 @@
         "facebook/php-sdk": "3.2.2"
     },
     "require-dev": {
+        "hybridauth/hybridauth": "dev-master",
         "opauth/opauth": "dev-master",
         "opauth/facebook": "dev-master",
         "opauth/google": "dev-master",
