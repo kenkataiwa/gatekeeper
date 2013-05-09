@@ -23,7 +23,11 @@
         "opauth/twitter": "dev-master"
     },
     "autoload": {
-        "psr-0": {"Gatekeeper": "lib/"}
+        "classmap": [
+            "lib/",
+            "thirdparty/OAuth",
+            "thirdparty/OpenID"
+        ]
     },
     "suggest": {
         "google/google-api-php-client": "Add a custom repository to http://google-api-php-client.googlecode.com/files/google-api-php-client-0.6.0.tar.gz "
