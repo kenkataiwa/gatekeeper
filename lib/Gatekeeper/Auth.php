@@ -60,7 +60,7 @@ class Auth {
      */
     public function authenticate($providerId, array $params = NULL) {
 
-        if (!$this->getStorage()->get("gatekeeper_session.$providerId.is_logged_in")) {
+        if (!$this->getStorage()->get("gk_session.$providerId.is_logged_in")) {
             $this->setProvider($this->setup($providerId, $params));
             $this->provider->login();
         } else {
