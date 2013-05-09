@@ -34,6 +34,11 @@ class Profile {
     public $photoURL = NULL;
 
     /**
+     * URL link to profile page on the IDp web site
+     */
+    public $largePhoto = NULL;
+
+    /**
      * User dispalyName provided by the IDp or a concatenation of first and last name.
      */
     public $displayName = NULL;
