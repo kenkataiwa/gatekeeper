@@ -112,6 +112,7 @@ class Facebook extends OAuth2 {
         $this->user->profile->displayName = (array_key_exists('name', $data)) ? $data['name'] : "";
         $this->user->profile->firstName = (array_key_exists('first_name', $data)) ? $data['first_name'] : "";
         $this->user->profile->lastName = (array_key_exists('last_name', $data)) ? $data['last_name'] : "";
+        $this->user->profile->username = (array_key_exists('username', $data)) ? $data['username'] : "";
         $this->user->profile->photoURL = "https://graph.facebook.com/" . $this->user->profile->identifier . "/picture?width=150&height=150";
         $this->user->profile->profileURL = (array_key_exists('link', $data)) ? $data['link'] : "";
         $this->user->profile->webSiteURL = (array_key_exists('website', $data)) ? $data['website'] : "";

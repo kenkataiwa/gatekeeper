@@ -54,6 +54,11 @@ class Profile {
     public $lastName = NULL;
 
     /**
+     * User's username
+     */
+    public $username = NULL;
+
+    /**
      * male or female
      */
     public $gender = NULL;
