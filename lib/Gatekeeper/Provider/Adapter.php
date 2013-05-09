@@ -105,8 +105,8 @@ class Adapter {
         // Make a fresh start
         $this->logout();
 
-		# Get Gatekeeper base url
-		$gatekeeperUrlBase = $this->config["base_url"];
+        # Get Gatekeeper base url
+        $gatekeeperUrlBase = $this->config["base_url"];
 
         # we make use of session_id() as storage hash to identify the current user
         # using session_regenerate_id() will be a problem, but ..
@@ -115,14 +115,14 @@ class Adapter {
         # set request timestamp
         $this->params["gk_time"] = time();
 
-		# For default Gatekeeper endpoint url hauth_login_start_url
-		# 	auth.start  required  the IDp ID
-		# 	auth.time   optional  login request timestamp
-		$this->params["login_start"] = $gatekeeperUrlBase . ( strpos( $gatekeeperUrlBase, '?' ) ? '&' : '?' ) . "gk.start={$this->id}&gk.time={$this->params["gk_time"]}";
+        # For default Gatekeeper endpoint url gk_login_start_url
+        # 	auth.start  required  the IDp ID
+        # 	auth.time   optional  login request timestamp
+        $this->params["login_start"] = $gatekeeperUrlBase . ( strpos($gatekeeperUrlBase, '?') ? '&' : '?' ) . "gk.start={$this->id}&gk.time={$this->params["gk_time"]}";
 
-		# for default HybridAuth endpoint url hauth_login_done_url
-		# 	auth.done   required  the IDp ID
-		$this->params["login_done"]  = $gatekeeperUrlBase . ( strpos( $gatekeeperUrlBase, '?' ) ? '&' : '?' ) . "gk.done={$this->id}";
+        # for default HybridAuth endpoint url gk_login_done_url
+        # 	auth.done   required  the IDp ID
+        $this->params["login_done"] = $gatekeeperUrlBase . ( strpos($gatekeeperUrlBase, '?') ? '&' : '?' ) . "gk.done={$this->id}";
 
 
         $this->storage->set("gk_session.{$this->id}.gk_return_to", $this->params["gk_return_to"]);
@@ -155,8 +155,6 @@ class Adapter {
      */
     public function getAccessToken() {
         if (!$this->service->isUserConnected()) {
-            Hybrid_Logger::error("User not connected to the provider.");
-
             throw new Exception("User not connected to the provider.", 7);
         }
 
@@ -180,10 +178,19 @@ class Adapter {
     }
 
     /**
-     * redirect the user to hauth_return_to (the callback url)
+     * redirect the user to gk_return_to (the callback url)
      */
     function returnToCallbackUrl() {
+        // get the stored callback url
+        $callback_url = $this->getStorage()->get("gk_session.{$this->id}.gk_return_to");
 
+        // remove some unneed'd stored data
+        $this->getStorage()->delete("gk_session.{$this->id}.gk_return_to");
+        $this->getStorage()->delete("gk_session.{$this->id}.gk_endpoint");
+        $this->getStorage()->delete("gk_session.{$this->id}.id_provider_params");
+
+        // Back to home
+        Auth::redirect($callback_url);
     }
 
     /**

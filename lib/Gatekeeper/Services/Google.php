@@ -1,19 +1,22 @@
 <?php
 
-namespace Gatekeeper\Provider;
+namespace Gatekeeper\Services;
 
 /**
  * Google
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
-use Gatekeeper\Provider\Model\OAuth2;
+use \Exception,
+    Gatekeeper\Auth,
+    Gatekeeper\Provider\Model\OAuth2;
 
 class Google extends OAuth2 {
 
     // default permissions
-    public $scope = "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.google.com/m8/feeds/";
+//    public $scope = "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.google.com/m8/feeds/";
 
+    public $scope = "http://www.google.com/m8/feeds/";
     /**
      * IDp wrappers initializer
      */
@@ -39,7 +42,7 @@ class Google extends OAuth2 {
             }
         }
 
-        Hybrid_Auth::redirect($this->api->authorizeUrl($parameters));
+        Auth::redirect($this->api->authorizeUrl($parameters));
     }
 
     /**
@@ -94,10 +97,10 @@ class Google extends OAuth2 {
                 . http_build_query(array_merge(array('alt' => 'json'), $this->config['contacts_param'])));
 
         if (!$response) {
-            return ARRAY();
+            return array();
         }
 
-        $contacts = ARRAY();
+        $contacts = array();
 
         foreach ($response->feed->entry as $idx => $entry) {
             $uc = new Hybrid_User_Contact();

@@ -107,7 +107,7 @@ class OAuth1 extends AbstractModel {
     function loginBegin() {
         $tokens = $this->api->requestToken($this->endpoint);
 
-        // request tokens as recived from provider
+        // request tokens as received from provider
         $this->request_tokens_raw = $tokens;
 
         // check the last HTTP status code returned
