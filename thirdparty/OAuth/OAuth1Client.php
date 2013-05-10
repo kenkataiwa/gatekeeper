@@ -1,13 +1,13 @@
 <?php
 
-/* !
- * HybridAuth
- * http://hybridauth.sourceforge.net | http://github.com/hybridauth/hybridauth
- * (c) 2009-2012, HybridAuth authors | http://hybridauth.sourceforge.net/licenses.html
+/**
+ * Gatekeeper
+ *
+ * A service client for the OAuth 1/1.0a flow.
+ * v0.1
+ *
+ * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
-
-// A service client for the OAuth 1/1.0a flow.
-// v0.1
 class OAuth1Client {
 
     public $api_base_url = "";
@@ -23,7 +23,7 @@ class OAuth1Client {
     public $curl_connect_time_out = 30;
     public $curl_ssl_verifypeer = false;
     public $curl_auth_header = true;
-    public $curl_useragent = "OAuth/1 Simple PHP Client v0.1; HybridAuth http://hybridauth.sourceforge.net/";
+    public $curl_useragent = "OAuth/1 Simple PHP Client v0.1;";
     public $curl_proxy = null;
     //--
 
