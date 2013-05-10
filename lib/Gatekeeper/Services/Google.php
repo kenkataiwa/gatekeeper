@@ -13,10 +13,11 @@ use \Exception,
 
 class Google extends OAuth2 {
 
-    // default permissions
-//    public $scope = "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.google.com/m8/feeds/";
+    /**
+     * @var String Default permissions
+     */
+    public $scope = "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.google.com/m8/feeds/";
 
-    public $scope = "http://www.google.com/m8/feeds/";
     /**
      * IDp wrappers initializer
      */
@@ -58,13 +59,14 @@ class Google extends OAuth2 {
         if (!isset($response->id) || isset($response->error)) {
             throw new Exception("User profile request failed! {$this->providerId} returned an invalid response.", 6);
         }
-
+        
         $this->user->profile->identifier = (property_exists($response, 'id')) ? $response->id : "";
         $this->user->profile->firstName = (property_exists($response, 'given_name')) ? $response->given_name : "";
         $this->user->profile->lastName = (property_exists($response, 'family_name')) ? $response->family_name : "";
         $this->user->profile->displayName = (property_exists($response, 'name')) ? $response->name : "";
         $this->user->profile->photoURL = (property_exists($response, 'picture')) ? $response->picture : "";
-        $this->user->profile->profileURL = "https://profiles.google.com/" . $this->user->profile->identifier;
+        $this->user->profile->largePhoto = (property_exists($response, 'picture')) ? $response->picture : "";
+        $this->user->profile->profileURL = (property_exists($response, 'link')) ? $response->link : "";
         $this->user->profile->gender = (property_exists($response, 'gender')) ? $response->gender : "";
         $this->user->profile->email = (property_exists($response, 'email')) ? $response->email : "";
         $this->user->profile->emailVerified = (property_exists($response, 'email')) ? $response->email : "";
