@@ -81,15 +81,21 @@ class Twitter extends OAuth1 {
             throw new Exception("User profile request failed! {$this->providerId} api returned an invalid response.", 6);
         }
 
-        # store the user profile.
-        $this->user->profile->identifier = (property_exists($response, 'id')) ? $response->id : "";
-        $this->user->profile->displayName = (property_exists($response, 'screen_name')) ? $response->screen_name : "";
-        $this->user->profile->description = (property_exists($response, 'description')) ? $response->description : "";
-        $this->user->profile->firstName = (property_exists($response, 'name')) ? $response->name : "";
-        $this->user->profile->photoURL = (property_exists($response, 'profile_image_url')) ? $response->profile_image_url : "";
-        $this->user->profile->profileURL = (property_exists($response, 'screen_name')) ? ("http://twitter.com/" . $response->screen_name) : "";
-        $this->user->profile->webSiteURL = (property_exists($response, 'url')) ? $response->url : "";
-        $this->user->profile->region = (property_exists($response, 'location')) ? $response->location : "";
+        // Exploding name to first name and last name
+        $name = (property_exists($response, 'name')) ? $response->name : null;
+        $names = explode(' ', $name);
+        // Store the user profile.
+        $this->user->profile->identifier = (property_exists($response, 'id')) ? $response->id : null;
+        $this->user->profile->displayName = (property_exists($response, 'name')) ? $response->name : null;
+        $this->user->profile->description = (property_exists($response, 'description')) ? $response->description : null;
+        $this->user->profile->firstName = isset($names[0]) ? $names[0] : null;
+        $this->user->profile->lastName = isset($names[1]) ? $names[1] : null;
+        $this->user->profile->username = (property_exists($response, 'screen_name')) ? $response->screen_name : null;
+        $this->user->profile->photoURL = (property_exists($response, 'profile_image_url')) ? $response->profile_image_url : null;
+        $this->user->profile->largePhoto = (property_exists($response, 'profile_image_url')) ? str_replace("_normal", '', $response->profile_image_url) : null;
+        $this->user->profile->profileURL = (property_exists($response, 'screen_name')) ? ("http://twitter.com/" . $response->screen_name) : null;
+        $this->user->profile->webSiteURL = (property_exists($response, 'url')) ? $response->url : null;
+        $this->user->profile->region = (property_exists($response, 'location')) ? $response->location : null;
 
         return $this->user->profile;
     }
@@ -128,11 +134,11 @@ class Twitter extends OAuth1 {
                 foreach ($response as $item) {
                     $uc = new Hybrid_User_Contact();
 
-                    $uc->identifier = (property_exists($item, 'id')) ? $item->id : "";
-                    $uc->displayName = (property_exists($item, 'name')) ? $item->name : "";
-                    $uc->profileURL = (property_exists($item, 'screen_name')) ? ("http://twitter.com/" . $item->screen_name) : "";
-                    $uc->photoURL = (property_exists($item, 'profile_image_url')) ? $item->profile_image_url : "";
-                    $uc->description = (property_exists($item, 'description')) ? $item->description : "";
+                    $uc->identifier = (property_exists($item, 'id')) ? $item->id : null;
+                    $uc->displayName = (property_exists($item, 'name')) ? $item->name : null;
+                    $uc->profileURL = (property_exists($item, 'screen_name')) ? ("http://twitter.com/" . $item->screen_name) : null;
+                    $uc->photoURL = (property_exists($item, 'profile_image_url')) ? $item->profile_image_url : null;
+                    $uc->description = (property_exists($item, 'description')) ? $item->description : null;
 
                     $contacts[] = $uc;
                 }
@@ -183,14 +189,14 @@ class Twitter extends OAuth1 {
         foreach ($response as $item) {
             $ua = new Hybrid_User_Activity();
 
-            $ua->id = (property_exists($item, 'id')) ? $item->id : "";
-            $ua->date = (property_exists($item, 'created_at')) ? strtotime($item->created_at) : "";
-            $ua->text = (property_exists($item, 'text')) ? $item->text : "";
+            $ua->id = (property_exists($item, 'id')) ? $item->id : null;
+            $ua->date = (property_exists($item, 'created_at')) ? strtotime($item->created_at) : null;
+            $ua->text = (property_exists($item, 'text')) ? $item->text : null;
 
-            $ua->user->identifier = (property_exists($item->user, 'id')) ? $item->user->id : "";
-            $ua->user->displayName = (property_exists($item->user, 'name')) ? $item->user->name : "";
-            $ua->user->profileURL = (property_exists($item->user, 'screen_name')) ? ("http://twitter.com/" . $item->user->screen_name) : "";
-            $ua->user->photoURL = (property_exists($item->user, 'profile_image_url')) ? $item->user->profile_image_url : "";
+            $ua->user->identifier = (property_exists($item->user, 'id')) ? $item->user->id : null;
+            $ua->user->displayName = (property_exists($item->user, 'name')) ? $item->user->name : null;
+            $ua->user->profileURL = (property_exists($item->user, 'screen_name')) ? ("http://twitter.com/" . $item->user->screen_name) : null;
+            $ua->user->photoURL = (property_exists($item->user, 'profile_image_url')) ? $item->user->profile_image_url : null;
 
             $activities[] = $ua;
         }
