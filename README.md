@@ -1,4 +1,4 @@
-# Gatekeeper 0.1.1-dev
+# Gatekeeper 0.1.5-dev
 
 Gatekeeper is a multi-provider authentication abstraction layer for PHP.
 
@@ -17,7 +17,7 @@ Gatekeeper is a multi-provider authentication abstraction layer for PHP.
     <th>Status</th>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://facebook.com" alt="Facebook">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://facebook.com" alt="Facebook" width="16">&nbsp;&nbsp;
 		<a href="http://facebook.com"><strong>Facebook</strong></a>
     </td>
     <td>Complete</td>
@@ -29,31 +29,31 @@ Gatekeeper is a multi-provider authentication abstraction layer for PHP.
     <td>Incomplete</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://google.com" alt="Google" width="16">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://plus.google.com" alt="Google" width="16">&nbsp;&nbsp;
 		<a href="http://google.com"><strong>Google</strong></a>
     </td>
     <td>Complete</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://instagram.com" alt="Instagram">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://instagram.com" alt="Instagram" width="16">&nbsp;&nbsp;
 		<a href="http://instagram.com">Instagram</a>
     </td>
     <td>Incomplete</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://linkedin.com" alt="LinkedIn">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://linkedin.com" alt="LinkedIn" width="16">&nbsp;&nbsp;
 		<a href="http://linkedin.com"><strong>LinkedIn</strong></a>
     </td>
     <td>Incomplete</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://windows.com" alt="Live Connect">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://microsoft.com" alt="Live Connect" width="16">&nbsp;&nbsp;
 		<a href="http://live.com">(Windows) Live</a>
     </td>
     <td>Incomplete</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://openid.net" alt="OpenID">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://openid.net" alt="OpenID" width="16">&nbsp;&nbsp;
 		<a href="http://openid.net">OpenID</a>
     </td>
     <td>Incomplete</td>
