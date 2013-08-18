@@ -7,9 +7,10 @@ namespace Gatekeeper\Services;
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
-use \Exception,
-    Gatekeeper\Auth,
-    Gatekeeper\Provider\Model\OAuth2;
+use \Exception;
+use Gatekeeper\Auth;
+use Gatekeeper\Provider\Model\OAuth2;
+use Gatekeeper\User\Contact;
 
 class Google extends OAuth2 {
 
@@ -109,7 +110,7 @@ class Google extends OAuth2 {
         $contacts = array();
 
         foreach ($response->feed->entry as $idx => $entry) {
-            $uc = new Hybrid_User_Contact();
+            $uc = new Contact();
 
             $uc->email = isset($entry->{'gd$email'}[0]->address) ? (string) $entry->{'gd$email'}[0]->address : '';
             $uc->displayName = isset($entry->title->{'$t'}) ? (string) $entry->title->{'$t'} : '';

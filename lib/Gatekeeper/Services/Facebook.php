@@ -11,6 +11,7 @@ use \Exception,
     \Facebook as FbApi,
     Gatekeeper\Auth,
     Gatekeeper\Provider\Model\OAuth2;
+use Gatekeeper\User\Contact;
 
 class Facebook extends OAuth2 {
 
@@ -92,7 +93,7 @@ class Facebook extends OAuth2 {
     }
 
     /**
-     * load the user profile from the IDp api client
+     * Load the user profile from the IDp api client
      */
     function getUserProfile() {
         // request user profile from fb api
@@ -132,6 +133,36 @@ class Facebook extends OAuth2 {
         }
 
         return $this->user->profile;
+    }
+
+    /**
+     * load the user contacts
+     */
+    function getUserContacts() {
+        try {
+            $response = $this->api->api('/me/friends');
+        } catch (FacebookApiException $e) {
+            throw new Exception("User contacts request failed! {$this->providerId} returned an error: $e");
+        }
+
+        if (!$response || !count($response["data"])) {
+            return ARRAY();
+        }
+
+        $contacts = ARRAY();
+
+        foreach ($response["data"] as $item) {
+            $uc = new Contact();
+
+            $uc->identifier = (array_key_exists("id", $item)) ? $item["id"] : "";
+            $uc->displayName = (array_key_exists("name", $item)) ? $item["name"] : "";
+            $uc->profileURL = "https://www.facebook.com/profile.php?id=" . $uc->identifier;
+            $uc->photoURL = "https://graph.facebook.com/" . $uc->identifier . "/picture?width=150&height=150";
+
+            $contacts[] = $uc;
+        }
+
+        return $contacts;
     }
 
 }
