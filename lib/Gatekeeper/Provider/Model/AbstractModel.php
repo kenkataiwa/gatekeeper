@@ -38,7 +38,7 @@ abstract class AbstractModel {
 
         $this->storage = new Storage;
 
-        // set HybridAuth endpoint for this provider
+        // set Gatekeeper endpoint for this provider
         $this->endpoint = $this->storage->get("gk_session.$providerId.gk_endpoint");
 
         // idp config
@@ -76,7 +76,7 @@ abstract class AbstractModel {
     abstract protected function loginFinish();
 
     /**
-     * generic logout, just erase current provider adapter stored data to let Hybrid_Auth all forget about it
+     * generic logout, just erase current provider adapter stored data to let Gatekeeper\Auth all forget about it
      */
     function logout() {
         $this->clearTokens();
@@ -138,3 +138,4 @@ abstract class AbstractModel {
     }
 
 }
+

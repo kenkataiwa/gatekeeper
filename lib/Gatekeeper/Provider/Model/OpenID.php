@@ -6,10 +6,10 @@ use \Exception,
     Gatekeeper\Auth;
 
 /**
- * To implement an OpenID based service provider, Hybrid_Provider_Model_OpenID
+ * To implement an OpenID based service provider, Gatekeeper\Provider\Model\OpenID
  * can be used to save the hassle of the authentication flow.
  *
- * Each class that inherit from Hybrid_Provider_Model_OAuth2 have only to define
+ * Each class that inherit from Gatekeeper\Provider\Model\OAuth2 have only to define
  * the provider identifier : <code>public $openidIdentifier = ""; </code>
  *
  * Gatekeeper\Provider\Model\OpenID use LightOpenID lib which can be found on
@@ -160,3 +160,4 @@ class OpenID extends AbstractModel {
     }
 
 }
+

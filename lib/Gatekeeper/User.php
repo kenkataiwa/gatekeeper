@@ -22,7 +22,7 @@ class User {
     public $timestamp = NULL;
 
     /**
-     * User profile, containts the list of fields available in the normalized user profile structure used by HybridAuth.
+     * User profile, containts the list of fields available in the normalized user profile structure used by Gatekeeper.
      */
     public $profile = NULL;
 

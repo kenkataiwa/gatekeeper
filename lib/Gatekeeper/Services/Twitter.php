@@ -7,9 +7,11 @@ namespace Gatekeeper\Services;
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
-use \Exception,
-    Gatekeeper\Auth,
-    Gatekeeper\Provider\Model\OAuth1;
+use \Exception;
+use Gatekeeper\Auth;
+use Gatekeeper\User\Activity;
+use Gatekeeper\User\Contact;
+use Gatekeeper\Provider\Model\OAuth1;
 
 class Twitter extends OAuth1 {
 
@@ -132,7 +134,7 @@ class Twitter extends OAuth1 {
 
             if ($response && count($response)) {
                 foreach ($response as $item) {
-                    $uc = new Hybrid_User_Contact();
+                    $uc = new Contact();
 
                     $uc->identifier = (property_exists($item, 'id')) ? $item->id : null;
                     $uc->displayName = (property_exists($item, 'name')) ? $item->name : null;
@@ -187,7 +189,7 @@ class Twitter extends OAuth1 {
         $activities = array();
 
         foreach ($response as $item) {
-            $ua = new Hybrid_User_Activity();
+            $ua = new Activity();
 
             $ua->id = (property_exists($item, 'id')) ? $item->id : null;
             $ua->date = (property_exists($item, 'created_at')) ? strtotime($item->created_at) : null;

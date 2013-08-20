@@ -120,7 +120,7 @@ class Adapter {
         # 	auth.time   optional  login request timestamp
         $this->params["login_start"] = $gatekeeperUrlBase . ( strpos($gatekeeperUrlBase, '?') ? '&' : '?' ) . "gk.start={$this->id}&gk.time={$this->params["gk_time"]}";
 
-        # for default HybridAuth endpoint url gk_login_done_url
+        # for default Gatekeeper endpoint url gk_login_done_url
         # 	auth.done   required  the IDp ID
         $this->params["login_done"] = $gatekeeperUrlBase . ( strpos($gatekeeperUrlBase, '?') ? '&' : '?' ) . "gk.done={$this->id}";
 
@@ -262,3 +262,4 @@ class Adapter {
     }
 
 }
+

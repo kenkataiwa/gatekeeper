@@ -4,10 +4,10 @@ namespace Gatekeeper\User;
 
 /**
  * Gatekeeper\User\Profile object represents the current logged in user profile.
- * The list of fields available in the normalized user profile structure used by HybridAuth.
+ * The list of fields available in the normalized user profile structure used by Gatekeeper.
  *
  * The Gatekeeper\User\Profile object is populated with as much information about the user as
- * HybridAuth was able to pull from the given API or authentication provider.
+ * Gatekeeper was able to pull from the given API or authentication provider.
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
