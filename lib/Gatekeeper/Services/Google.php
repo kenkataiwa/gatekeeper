@@ -17,11 +17,14 @@ class Google extends OAuth2 {
     /**
      * @var String Default permissions
      *
-     * Todo:
-     * More scopes with Google+
-     * scopes https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/plus.login
+     *
+     * Note:
+     * Using https://www.googleapis.com/auth/plus.login as of 20/08/2013
+     * Dropped
+     * https://www.googleapis.com/auth/userinfo.profile and https://www.googleapis.com/auth/plus.me
+     * because they are implicitly included and would create a confusing permissions dialog for your user.
      */
-    public $scope = "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.google.com/m8/feeds/";
+    public $scope = "https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email https://www.google.com/m8/feeds/";
 
     /**
      * IDp wrappers initializer
@@ -52,7 +55,7 @@ class Google extends OAuth2 {
     }
 
     /**
-     * load the user profile from the IDp api client
+     * Load the user profile from the IDp api client
      */
     function getUserProfile() {
         // refresh tokens if needed
@@ -89,7 +92,7 @@ class Google extends OAuth2 {
     }
 
     /**
-     * load the user (Gmail) contacts
+     * Load the user (Gmail) contacts
      *  ..toComplete
      */
     function getUserContacts() {
@@ -120,6 +123,25 @@ class Google extends OAuth2 {
         }
 
         return $contacts;
+    }
+
+    /**
+     *
+     */
+    function setUserMoment() {
+//        Create moment that does not have a URL.
+//        Example
+//        $item_scope = new Google_ItemScope();
+//        $item_scope->setId("MYGOOGLEPAGEID");
+//        $item_scope->setType("http://schemas.google.com/AddActivity");
+//        $item_scope->setName("The Google+ Platform");
+//        $item_scope->setDescription("A page that describes just how awesome Google+ is!");
+//        $item_scope->setImage("https://developers.google.com/+/plugins/snippet/examples/thing.png");
+//
+//        $moment_body = new Google_Moment();
+//        $moment_body->setType("http://schemas.google.com/AddActivity");
+//        $moment_body->setTarget($item_scope);
+//        $momentResult = $plus->moments->insert('me', 'vault', $moment_body);
     }
 
 }
