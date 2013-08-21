@@ -4,11 +4,13 @@ require __DIR__ . '/../bootstrap.php';
 
 try {
     $auth = new \Gatekeeper\Auth(require __DIR__ . '/config/services.config.php');
-    $google = $auth->authenticate('twitter');
-    $contacts = $google->getUserContacts();
-//    $contact = $google->getUserContact();
+    $service = $auth->authenticate('facebook');
+    $p = $service->getUserProfile();
 } catch (\Exception $e) {
-    die("<b>got an error!</b> " . $e->getMessage());
+    var_dump($e);
+    die("<b>Got an error!</b> " . $e->getMessage());
 }
 
-var_dump($contacts);
+var_dump($p);
+
+echo 'Finished execution';
