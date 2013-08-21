@@ -7,10 +7,11 @@ namespace Gatekeeper\Services;
  *
  * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
  */
-use \Exception,
-    \Facebook as FbApi,
-    Gatekeeper\Auth,
-    Gatekeeper\Provider\Model\OAuth2;
+use \Exception;
+use \Facebook as FbApi;
+use Gatekeeper\Auth;
+use Gatekeeper\Provider\Model\OAuth2;
+use Gatekeeper\User\Activity;
 use Gatekeeper\User\Contact;
 
 class Facebook extends OAuth2 {
@@ -163,6 +164,97 @@ class Facebook extends OAuth2 {
         }
 
         return $contacts;
+    }
+
+    /**
+     *
+     * Publish a new post on the given profile's timeline.
+     * Note: requires publish permissions for the targeted profile.
+     * A status is a feed item
+     *
+     * method /PROFILE_ID/feed
+     * arguments message, picture, link, name, caption, description, source, place, tags
+     *
+     *
+     * @param mixed $status
+     * @throws Exception
+     * @link https://developers.facebook.com/docs/reference/api/publishing/ description
+     */
+    function setUserStatus($status) {
+        $parameters = array();
+
+        if (is_array($status)) {
+            $parameters = $status;
+        } else {
+            $parameters["message"] = $status;
+        }
+
+        try {
+            $response = $this->api->api("/me/feed", "post", $parameters);
+        } catch (FacebookApiException $e) {
+            throw new Exception("Update user status failed! {$this->providerId} returned an error: $e");
+        }
+    }
+
+    /**
+     * load the user latest activity
+     *    - timeline : all the stream
+     *    - me       : the user activity only
+     */
+    function getUserActivity($stream) {
+        try {
+            if ($stream == "me") {
+                $response = $this->api->api('/me/feed');
+            } else {
+                $response = $this->api->api('/me/home');
+            }
+        } catch (FacebookApiException $e) {
+            throw new Exception("User activity stream request failed! {$this->providerId} returned an error: $e");
+        }
+
+        if (!$response || !count($response['data'])) {
+            return ARRAY();
+        }
+
+        $activities = ARRAY();
+
+        foreach ($response['data'] as $item) {
+            if ($stream == "me" && $item["from"]["id"] != $this->api->getUser()) {
+                continue;
+            }
+
+            $ua = new Activity();
+
+            $ua->id = (array_key_exists("id", $item)) ? $item["id"] : "";
+            $ua->date = (array_key_exists("created_time", $item)) ? strtotime($item["created_time"]) : "";
+
+            if ($item["type"] == "video") {
+                $ua->text = (array_key_exists("link", $item)) ? $item["link"] : "";
+            }
+
+            if ($item["type"] == "link") {
+                $ua->text = (array_key_exists("link", $item)) ? $item["link"] : "";
+            }
+
+            if (empty($ua->text) && isset($item["story"])) {
+                $ua->text = (array_key_exists("link", $item)) ? $item["link"] : "";
+            }
+
+            if (empty($ua->text) && isset($item["message"])) {
+                $ua->text = (array_key_exists("message", $item)) ? $item["message"] : "";
+            }
+
+            if (!empty($ua->text)) {
+                $ua->user->identifier = (array_key_exists("id", $item["from"])) ? $item["from"]["id"] : "";
+                $ua->user->displayName = (array_key_exists("name", $item["from"])) ? $item["from"]["name"] : "";
+                $ua->user->profileURL = "https://www.facebook.com/profile.php?id=" . $ua->user->identifier;
+                $ua->user->photoURL = "https://graph.facebook.com/" . $ua->user->identifier . "/picture?type=square";
+
+                $activities[] = $ua;
+            }
+        }
+
+        return $activities;
     }
 
 }
