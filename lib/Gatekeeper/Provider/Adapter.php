@@ -254,12 +254,12 @@ class Adapter {
      */
     public function __call($name, $arguments) {
 
+        // Using call_user_func_array
         if (count($arguments)) {
-            return $this->service->$name($arguments[0]);
+            return call_user_func_array(array($this->service, $name), $arguments);
         } else {
             return $this->service->$name();
         }
     }
 
 }
-

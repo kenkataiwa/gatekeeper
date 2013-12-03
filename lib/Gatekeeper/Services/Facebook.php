@@ -197,6 +197,35 @@ class Facebook extends OAuth2 {
     }
 
     /**
+     *
+     * Publish a new post on the given profile's timeline.
+     * Note: requires publish permissions for the targeted profile.
+     * A status is a feed item
+     *
+     * method /PROFILE_ID/feed
+     * arguments message, picture, link, name, caption, description, source, place, tags
+     *
+     *
+     * @param mixed $status
+     * @throws Exception
+     * @link https://developers.facebook.com/docs/reference/api/publishing/ description
+     */
+    function publishUserAction($action = null, $params = null) {
+        $parameters = array();
+        if (is_array($params)) {
+            $parameters = $params;
+        } else {
+            // Todo
+        }
+
+        try {
+            $response = $this->api->api("/me/{$action}", "POST", $parameters);
+        } catch (FacebookApiException $e) {
+            throw new Exception("Update user activity failed! {$this->providerId} returned an error: $e");
+        }
+    }
+
+    /**
      * load the user latest activity
      *    - timeline : all the stream
      *    - me       : the user activity only
@@ -258,4 +287,3 @@ class Facebook extends OAuth2 {
     }
 
 }
-
