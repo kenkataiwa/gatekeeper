@@ -1,5 +1,6 @@
-/nbproject/private/
-/nbproject/
-/vendor/
-/composer.lock
-/tools/sandbox/config/services.config.php
+nbproject/private
+nbproject
+vendor
+.idea
+composer.lock
+tools/sandbox/config/services.config.php
