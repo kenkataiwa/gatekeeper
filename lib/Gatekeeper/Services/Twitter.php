@@ -205,5 +205,24 @@ class Twitter extends OAuth1 {
 
         return $activities;
     }
+    
+     
+    /**
+     * load the user's followers count    
+     */
+    function getFollowersCount($screen_name) {
+        $response = $this->api->get('users/show.json?screen_name='.$screen_name);
+      
+        // check the last HTTP status code returned
+        if ($this->api->http_code != 200) {
+            throw new Exception("Followers count failed to load! {$this->providerId} returned an error. " . $this->errorMessageByStatus($this->api->http_code));
+        }
+        if (!$response) {
+            return array();
+        }
+        $followers = $response;
+        return $followers;
+    }
+
 
 }
