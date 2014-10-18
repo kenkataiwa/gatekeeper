@@ -4,7 +4,7 @@ require __DIR__ . '/../bootstrap.php';
 
 try {
     $auth = new \Gatekeeper\Auth(require __DIR__ . '/config/services.config.php');
-    $service = $auth->authenticate('google');
+    $service = $auth->authenticate('twitter');
     $user = $service->getUserProfile();
 } catch (\Exception $e) {
     //var_dump($e);

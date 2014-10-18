@@ -17,22 +17,21 @@ Gatekeeper is a multi-provider authentication abstraction layer for PHP.
     <th>Status</th>
 </tr>
 <tr>
+	<td><img src="http://g.etfv.co/http://plus.google.com" alt="Google" width="16">&nbsp;&nbsp;
+		<a href="http://google.com"><strong>Google</strong></a>
+    </td>
+    <td>Complete</td>
+</tr>
+<tr>
 	<td><img src="http://g.etfv.co/http://facebook.com" alt="Facebook" width="16">&nbsp;&nbsp;
 		<a href="http://facebook.com"><strong>Facebook</strong></a>
     </td>
     <td>Complete</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://www.foursquare.com" alt="Foursquare" width="16">&nbsp;&nbsp;
-		<a href="http://www.foursquare.com">Foursquare</a>
-    </td>
-    <td>Incomplete</td>
-</tr>
-<tr>
-	<td><img src="http://g.etfv.co/http://plus.google.com" alt="Google" width="16">&nbsp;&nbsp;
-		<a href="http://google.com"><strong>Google</strong></a>
-    </td>
-    <td>Complete</td>
+	<td><img src="http://g.etfv.co/http://twitter.com" alt="Twitter" width="16">&nbsp;&nbsp;
+		<a href="http://twitter.com"><strong>Twitter</strong></a></td>
+	<td>Complete</td>
 </tr>
 <tr>
 	<td><img src="http://g.etfv.co/http://instagram.com" alt="Instagram" width="16">&nbsp;&nbsp;
@@ -57,11 +56,6 @@ Gatekeeper is a multi-provider authentication abstraction layer for PHP.
 		<a href="http://openid.net">OpenID</a>
     </td>
     <td>Incomplete</td>
-</tr>
-<tr>
-	<td><img src="http://g.etfv.co/http://twitter.com" alt="Twitter" width="16">&nbsp;&nbsp;
-		<a href="http://twitter.com"><strong>Twitter</strong></a></td>
-	<td>Complete</td>
 </tr>
 <tr>
 	<td><img src="http://g.etfv.co/http://developer.yahoo.com" alt="Yahoo!" width="16">&nbsp;&nbsp;
