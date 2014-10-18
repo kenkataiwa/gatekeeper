@@ -285,5 +285,22 @@ class Facebook extends OAuth2 {
 
         return $activities;
     }
+    
+    /**
+     * load the page likes    
+     */
+    function getPageLikes($pageId) {
+        try {           
+            $response = $this->api->api('/'.$pageId);            
+        } catch (FacebookApiException $e) {
+            throw new Exception("Page likes request failed! {$this->providerId} returned an error: $e");
+        }
+      $pageLikes = null;
+       if(array_key_exists('likes',$response) ){
+        $pageLikes = $response['likes'];
+       }
+       
+        return $pageLikes;
+    }
 
 }
