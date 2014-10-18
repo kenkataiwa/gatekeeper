@@ -3,9 +3,9 @@
 namespace Gatekeeper\Services;
 
 /**
- * Twitter
+ * Instagram
  *
- * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
+ * @author Jeremiah Mannyanda <jemanyanda02@hotmail.com>
  */
 use \Exception;
 use Gatekeeper\Auth;
@@ -13,7 +13,7 @@ use Gatekeeper\User\Activity;
 use Gatekeeper\User\Contact;
 use Gatekeeper\Provider\Model\OAuth1;
 
-class Twitter extends OAuth1 {
+class Instagram extends OAuth1 {
 
     /**
      * IDp wrappers initializer
@@ -22,17 +22,17 @@ class Twitter extends OAuth1 {
         parent::initialize();
 
         // Provider api end-points
-        $this->api->api_base_url = "https://api.twitter.com/1.1/";
-        $this->api->authorize_url = "https://api.twitter.com/oauth/authenticate";
-        $this->api->request_token_url = "https://api.twitter.com/oauth/request_token";
-        $this->api->access_token_url = "https://api.twitter.com/oauth/access_token";
+        $this->api->api_base_url = "https://api.instagram.com/v1";
+        $this->api->authorize_url = "https://api.instagram.com/oauth/authorise";
+        $this->api->request_token_url = "https://api.instagram.com/oauth/request_token";
+        $this->api->access_token_url = "https://api.instagram.com/oauth/access_token";
 
-        if (isset($this->config['api_version']) && $this->config['api_version']) {
-            $this->api->api_base_url = "https://api.twitter.com/{$this->config['api_version']}/";
-        }
+//        if (isset($this->config['api_version']) && $this->config['api_version']) {
+//            $this->api->api_base_url = "https://api.instagram.com/{$this->config['api_version']}/";
+//        }
 
         if (isset($this->config['authorize']) && $this->config['authorize']) {
-            $this->api->authorize_url = "https://api.twitter.com/oauth/authorize";
+            $this->api->authorize_url = "https://api.instagram.com/oauth/authorize";
         }
 
         $this->api->curl_auth_header = false;
@@ -95,7 +95,7 @@ class Twitter extends OAuth1 {
         $this->user->profile->username = (property_exists($response, 'screen_name')) ? $response->screen_name : null;
         $this->user->profile->photoURL = (property_exists($response, 'profile_image_url')) ? $response->profile_image_url : null;
         $this->user->profile->largePhoto = (property_exists($response, 'profile_image_url')) ? str_replace("_normal", '', $response->profile_image_url) : null;
-        $this->user->profile->profileURL = (property_exists($response, 'screen_name')) ? ("http://twitter.com/" . $response->screen_name) : null;
+        $this->user->profile->profileURL = (property_exists($response, 'screen_name')) ? ("http://instagram.com/" . $response->screen_name) : null;
         $this->user->profile->webSiteURL = (property_exists($response, 'url')) ? $response->url : null;
         $this->user->profile->region = (property_exists($response, 'location')) ? $response->location : null;
 
@@ -136,12 +136,7 @@ class Twitter extends OAuth1 {
                 foreach ($response as $item) {
                     $uc = new Contact();
 
-                    $uc->identifier = (property_exists($item, 'id')) ? $item->id : null;
-                    $uc->displayName = (property_exists($item, 'name')) ? $item->name : null;
-                    $uc->profileURL = (property_exists($item, 'screen_name')) ? ("http://twitter.com/" . $item->screen_name) : null;
-                    $uc->photoURL = (property_exists($item, 'profile_image_url')) ? $item->profile_image_url : null;
-                    $uc->description = (property_exists($item, 'description')) ? $item->description : null;
-
+      
                     $contacts[] = $uc;
                 }
             }
@@ -150,79 +145,29 @@ class Twitter extends OAuth1 {
         return $contacts;
     }
 
-    /**
-     * update user status
-     */
-    function setUserStatus($status) {
-        $parameters = array('status' => $status);
-        $response = $this->api->post('statuses/update.json', $parameters);
+  
 
-        // check the last HTTP status code returned
-        if ($this->api->http_code != 200) {
-            throw new Exception("Update user status failed! {$this->providerId} returned an error. " . $this->errorMessageByStatus($this->api->http_code));
-        }
-    }
-
-    /**
-     * load the user latest activity
-     *    - timeline : all the stream
-     *    - me       : the user activity only
-     *
-     * by default return the timeline
-     */
-    function getUserActivity($stream) {
-        if ($stream == "me") {
-            $response = $this->api->get('statuses/user_timeline.json');
-        } else {
-            $response = $this->api->get('statuses/home_timeline.json');
-        }
-
-        // check the last HTTP status code returned
-        if ($this->api->http_code != 200) {
-            throw new Exception("User activity stream request failed! {$this->providerId} returned an error. " . $this->errorMessageByStatus($this->api->http_code));
-        }
-
-        if (!$response) {
-            return array();
-        }
-
-        $activities = array();
-
-        foreach ($response as $item) {
-            $ua = new Activity();
-
-            $ua->id = (property_exists($item, 'id')) ? $item->id : null;
-            $ua->date = (property_exists($item, 'created_at')) ? strtotime($item->created_at) : null;
-            $ua->text = (property_exists($item, 'text')) ? $item->text : null;
-
-            $ua->user->identifier = (property_exists($item->user, 'id')) ? $item->user->id : null;
-            $ua->user->displayName = (property_exists($item->user, 'name')) ? $item->user->name : null;
-            $ua->user->profileURL = (property_exists($item->user, 'screen_name')) ? ("http://twitter.com/" . $item->user->screen_name) : null;
-            $ua->user->photoURL = (property_exists($item->user, 'profile_image_url')) ? $item->user->profile_image_url : null;
-
-            $activities[] = $ua;
-        }
-
-        return $activities;
-    }
     
-     
     /**
      * load the user's followers count    
      */
     function getFollowersCount($screen_name) {
-        $response = $this->api->get('users/show.json?screen_name='.$screen_name);
-      
+            $response = $this->api->get('users/'.$screen_name);
+     
         // check the last HTTP status code returned
         if ($this->api->http_code != 200) {
             throw new Exception("Followers count failed to load! {$this->providerId} returned an error. " . $this->errorMessageByStatus($this->api->http_code));
         }
+
         if (!$response) {
             return array();
         }
-        $followers = $response;
-        return $followers;
-    }
 
+        $followers = $response;
+
+        
+         return $followers; exit;
+        //return $followers['data']['counts']['followed_by'];
+    }
 
 }
