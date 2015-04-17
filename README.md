@@ -49,7 +49,7 @@ Gatekeeper is a multi-provider authentication abstraction layer for PHP.
 	<td><img src="http://g.etfv.co/http://microsoft.com" alt="Live Connect" width="16">&nbsp;&nbsp;
 		<a href="http://live.com">(Windows) Live</a>
     </td>
-    <td>Incomplete</td>
+    <td>Complete</td>
 </tr>
 <tr>
 	<td><img src="http://g.etfv.co/http://openid.net" alt="OpenID" width="16">&nbsp;&nbsp;

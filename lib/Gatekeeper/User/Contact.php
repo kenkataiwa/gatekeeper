@@ -40,9 +40,14 @@ class Contact {
     public $description = NULL;
 
     /**
-     *  User email. Not all of IDp garant access to the user email 
+     *  User email. Not all of IDp grant access to the user email
      */
     public $email = NULL;
+
+    /**
+     *  User phone. Not all of IDp grant access to the user email
+     */
+    public $phone = NULL;
 
 }
 
