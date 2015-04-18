@@ -18,48 +18,48 @@ Gatekeeper is a multi-provider authentication abstraction layer for PHP.
 </tr>
 <tr>
 	<td><img src="http://www.google.com/s2/favicons?domain_url=https://www.google.com" alt="Google" width="16">&nbsp;&nbsp;
-		<a href="http://google.com"><strong>Google</strong></a>
+		<a  target="_blank" href="http://google.com"><strong>Google</strong></a>
     </td>
     <td>Complete</td>
 </tr>
 <tr>
 	<td><img src="http://www.google.com/s2/favicons?domain_url=https://www.facebook.com" alt="Facebook" width="16">&nbsp;&nbsp;
-		<a href="http://facebook.com"><strong>Facebook</strong></a>
+		<a  target="_blank" href="http://facebook.com"><strong>Facebook</strong></a>
     </td>
     <td>Complete</td>
 </tr>
 <tr>
 	<td><img src="http://www.google.com/s2/favicons?domain_url=https://twitter.com" alt="Twitter" width="16">&nbsp;&nbsp;
-		<a href="http://twitter.com"><strong>Twitter</strong></a></td>
+		<a  target="_blank" href="http://twitter.com"><strong>Twitter</strong></a></td>
 	<td>Complete</td>
 </tr>
 <tr>
 	<td><img src="http://www.google.com/s2/favicons?domain_url=https://www.microsoft.com" alt="Live Connect" width="16">&nbsp;&nbsp;
-		<a href="http://live.com">(Microsoft) Live Connect</a>
+		<a  target="_blank" href="http://live.com">(Microsoft) Live Connect</a>
     </td>
     <td>Complete</td>
 </tr>
 <tr>
 	<td><img src="http://www.google.com/s2/favicons?domain_url=https://instagram.com" alt="Instagram" width="16">&nbsp;&nbsp;
-		<a href="http://instagram.com">Instagram</a>
+		<a  target="_blank" href="http://instagram.com">Instagram</a>
     </td>
     <td>Incomplete</td>
 </tr>
 <tr>
 	<td><img src="http://www.google.com/s2/favicons?domain_url=https://linkedin.com" alt="LinkedIn" width="16">&nbsp;&nbsp;
-		<a href="http://linkedin.com"><strong>LinkedIn</strong></a>
+		<a  target="_blank" href="http://linkedin.com"><strong>LinkedIn</strong></a>
     </td>
     <td>Incomplete</td>
 </tr>
 <tr>
 	<td><img src="http://www.google.com/s2/favicons?domain_url=http://openid.net" alt="OpenID" width="16">&nbsp;&nbsp;
-		<a href="http://openid.net">OpenID</a>
+		<a  target="_blank" href="http://openid.net">OpenID</a>
     </td>
     <td>Incomplete</td>
 </tr>
 <tr>
 	<td><img src="https://s.yimg.com/rz/l/favicon.ico" alt="Yahoo!" width="16">&nbsp;&nbsp;
-        <a href="http://developer.yahoo.com">Yahoo!</a>
+        <a  target="_blank" href="http://developer.yahoo.com">Yahoo!</a>
     </td>
     <td>Incomplete</td>
 </tr>
