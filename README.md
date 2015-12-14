@@ -1,9 +1,8 @@
-# Gatekeeper 0.1.5-dev
+# Gatekeeper 0.1.5
 
 Gatekeeper is a multi-provider authentication abstraction layer for PHP.
 
 [![Build Status](https://api.travis-ci.org/kenkataiwa/gatekeeper.png?branch=master)](http://travis-ci.org/kenkataiwa/gatekeeper)
-[![project status](http://stillmaintained.com/kenkataiwa/gatekeeper.png)](http://stillmaintained.com/kenkataiwa/gatekeeper)
 
 ## Getting Started
 
@@ -35,7 +34,7 @@ Gatekeeper is a multi-provider authentication abstraction layer for PHP.
 </tr>
 <tr>
 	<td><img src="http://www.google.com/s2/favicons?domain_url=https://www.microsoft.com" alt="Live Connect" width="16">&nbsp;&nbsp;
-		<a  target="_blank" href="http://live.com">(Microsoft) Live Connect</a>
+		<a  target="_blank" href="http://live.com"><strong>(Microsoft) Live Connect</strong></a>
     </td>
     <td>Complete</td>
 </tr>
@@ -47,7 +46,7 @@ Gatekeeper is a multi-provider authentication abstraction layer for PHP.
 </tr>
 <tr>
 	<td><img src="http://www.google.com/s2/favicons?domain_url=https://linkedin.com" alt="LinkedIn" width="16">&nbsp;&nbsp;
-		<a  target="_blank" href="http://linkedin.com"><strong>LinkedIn</strong></a>
+		<a  target="_blank" href="http://linkedin.com">LinkedIn</a>
     </td>
     <td>Incomplete</td>
 </tr>
