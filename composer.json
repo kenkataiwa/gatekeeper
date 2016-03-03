@@ -1,7 +1,7 @@
 {
     "name": "kenkataiwa/gatekeeper",
     "type": "package",
-    "description": "Open Authentiation Abstration",
+    "description": "Open Authentication Abstraction",
     "keywords": ["gatekeeper", "oauth", "php-oauth", "social integration"],
     "homepage": "http://www.github.com/kenkataiwa/gatekeeper",
     "license": "MIT",
