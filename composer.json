@@ -6,7 +6,7 @@
     "homepage": "http://www.github.com/kenkataiwa/gatekeeper",
     "license": "MIT",
     "authors": [
-        {"name": "Kenneth Kataiwa", "email": "kenkataiwa@gmail.com"}
+        {"name": "Kenneth Kataiwa", "email": "mail@kenkataiwa.com"}
     ],
     "minimum-stability": "alpha",
     "require": {

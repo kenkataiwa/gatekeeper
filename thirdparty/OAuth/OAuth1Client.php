@@ -6,7 +6,7 @@
  * A service client for the OAuth 1/1.0a flow.
  * v0.1
  *
- * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
+ * @author Kenneth Kataiwa <mail@kenkataiwa.com>
  */
 class OAuth1Client {
 

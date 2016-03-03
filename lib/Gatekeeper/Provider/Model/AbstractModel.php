@@ -8,7 +8,7 @@ use Gatekeeper\User,
 
 /**
  *
- * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
+ * @author Kenneth Kataiwa <mail@kenkataiwa.com>
  */
 abstract class AbstractModel {
 

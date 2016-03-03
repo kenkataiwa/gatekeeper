@@ -3,7 +3,7 @@
 /**
  * Gatekeeper configuration sample
  *
- * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
+ * @author Kenneth Kataiwa <mail@kenkataiwa.com>
  */
 return array(
     "base_url" => "",

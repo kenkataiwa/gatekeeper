@@ -15,7 +15,7 @@ use \Exception,
  * Gatekeeper\Provider\Model\OpenID use LightOpenID lib which can be found on
  * thirdparty/OpenID/LightOpenID.php
  *
- * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
+ * @author Kenneth Kataiwa <mail@kenkataiwa.com>
  */
 class OpenID extends AbstractModel {
 

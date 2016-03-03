@@ -9,7 +9,7 @@ namespace Gatekeeper\User;
  * The Gatekeeper\User\Profile object is populated with as much information about the user as
  * Gatekeeper was able to pull from the given API or authentication provider.
  *
- * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
+ * @author Kenneth Kataiwa <mail@kenkataiwa.com>
  */
 class Profile {
 

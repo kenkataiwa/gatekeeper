@@ -5,7 +5,7 @@ namespace Gatekeeper\Services;
 /**
  * Facebook
  *
- * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
+ * @author Kenneth Kataiwa <mail@kenkataiwa.com>
  */
 use \Exception;
 use \Facebook as FbApi;

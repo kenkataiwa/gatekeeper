@@ -18,7 +18,7 @@ use \Exception,
  * Gatekeeper\Provider\Model\OAuth1 use OAuth1Client v0.1 which can be found on
  * thirdparty/OAuth/OAuth1Client.php
  *
- * @author Kenneth Kataiwa <kenkataiwa@gmail.com>
+ * @author Kenneth Kataiwa <mail@kenkataiwa.com>
  */
 class OAuth1 extends AbstractModel {
 
